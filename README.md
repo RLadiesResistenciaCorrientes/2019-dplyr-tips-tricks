@@ -1,1 +1,1 @@
-# 2019-dplyr-tips-tricks
+# Material del segundo meetup 2019 de Rladies Resistencia Corrientes

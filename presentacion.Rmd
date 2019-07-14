@@ -28,7 +28,7 @@ class: inverse, center, middle
 ```{r eval=FALSE, tidy=FALSE}
 install.packages("gapminder")
 ```
-
+--
 .pull-left[
 ```{r plot-last, fig.show = 'hide', warning=FALSE, message=FALSE}
 library(ggplot2)
@@ -55,35 +55,37 @@ ggplot(filter(gapminder, year==2007), aes(x = gdpPercap, y = lifeExp)) +
 ```
 ]
 ---
-```{r message=FALSE, warning=FALSE, eval=FALSE}
-library(gganimate)
-```
-
-```{r tidy=FALSE, warning=FALSE, message=FALSE, echo=FALSE}
-library(gganimate)
-ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
-  geom_point(alpha = 0.7) +
-  scale_colour_manual(values = country_colors) +
-  scale_size(range = c(2, 12)) +
-  scale_x_log10() +
-  facet_wrap(~continent) +
-  theme(legend.position = 'none') +
-  labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +
-  transition_time(year)
-```
 
 
 ---
 # data.frame vs. tibble
-- Los data.frame son estructuras nativas de rbase y están disponibles sin necesidad de instalar ningún paquete adicional. Es una estructura tabular organizada en filas y columnas. Se puede acceder a las columnas mediantes colnames(df) y los nombres de las filas, como rownames(df).
-- Los tibble sin embargo, son parte de tidyverse. También presentan una estructura tabular, en filas y columnas. Los tibbles eliminan los rownames por defecto, para tener mejor compatibilidad con bases de datos SQL.
+- data.frame es una estructura nativas de rbase y está disponible sin necesidad de instalar ningún paquete adicional. Es una estructura tabular organizada en filas y columnas. Se puede acceder a las columnas mediantes colnames() y los nombres de las filas, como rownames().
+- tibble, sin embargo, es parte de tidyverse. También presenta una estructura tabular, en filas y columnas. Los tibbles eliminan los rownames por defecto, para tener mejor compatibilidad con bases de datos SQL.
 
 - Ambas formas son intercambiables mediante los comandos
 
 ```{r message=FALSE, warning=FALSE, eval=FALSE}
-as.data.frame()
-as_tibble()
+rbase::as.data.frame()
+tidyverse::as_tibble()
 ```
+
+--
+- Slicing
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+iris$Sepal.Length
+iris[["Sepal.Length"]]
+```
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE, echo=FALSE}
+tibble::as_tibble(iris)
+```
+
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+iris %>% .$Sepal.Length
+iris %>% .[["Sepal.Length"]]
+```
+
 
 
 ---
@@ -127,6 +129,7 @@ glimpse(gapminder)
 dplyr::slice(gapminder, 5L)
 ```
 
+
 ---
 #Funciones Útiles
 ## str()
@@ -150,8 +153,11 @@ class: inverse, middle, center
 # %>%
 
 ---
-# Operador pipe
+# Operador pipe %>%
 - El operador pipe nos permite concatenar funciones y objetos en R, de forma que el código tenga un aspecto más ordenado, siguiendo la filosofía de tidyverse. 
+
+
+
 
 ---
 class: inverse, middle, center
@@ -172,18 +178,75 @@ class: middle, center
 
 # select()
 
+- Podemos extraer columnas
+
 ```{r }
-gap1<- gapminder %>%
+gapminder %>%
   select(country, lifeExp, gdpPercap)
-head(gap1)
 ```
 
 .footnote[[*]
 Mas información en https://dplyr.tidyverse.org/reference/select.html]
 
 ---
+# select()
+- Podemos renombrar variables
+
+```{r }
+
+```
+
+---
+#Tip 1: si tenemos que seleccionar las mismas columnas muchas veces
+
+```{r message=FALSE, warning=FALSE}
+cols<-c("country", "lifeExp", "gdpPercap")
+
+gapminder %>%
+  select(!!cols)
+```
+---
+
+#Tip 2: seleccionar según una expresión regular (regex)
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  select(matches("gdp"))%>%
+  head
+```
+
+---
+#Tip 3: para reordenar columnas
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  select("lifeExp", "gdpPercap", everything())%>%
+  head
+```
+
+---
+# select_all()
+
+- Permite seleccionar todas las columnas y aplicar una operación a todas las columnas
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  select_all(toupper) %>%
+  head
+```
+
+
+- Para deshacer el cambio anterior
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+gapminder %>%
+    select_all(tolower)
+```
+
+---
 
 # filter()
+
+- Realizamos el filtrado según un valor numérico de una variable. Para ello utilizamos los siguientes operadores: >, >=, <, =<, ==, !=
 
 ```{r }
 gap2<- gapminder %>%
@@ -194,13 +257,40 @@ head(gap2)
 .footnote[[*]
 Mas información en https://dplyr.tidyverse.org/reference/filter.html]
 ---
+# filter()
+
+- Si queremos realizar un filtrado según un rango, lo hacemos de la siguiente manera
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  select (country, lifeExp, year) %>%
+  filter(lifeExp >= 60, lifeExp < 85) %>%
+  head
+```
+
+---
+
+- También podemos hacerlo combinando con between():
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  select (country, lifeExp, year) %>%
+  filter(between(lifeExp, 60, 85)) %>%
+  head
+```
+
+
+
+---
 
 # mutate()
 
+- mutate() es una función que nos permite crear una nueva columna en un tibble, realizando una operación con otras ya existentes.
+
 ```{r }
-gap3<- gapminder %>%
-  mutate(lifeExp > 80)
-head(gap3)
+gapminder %>%
+  mutate(gdp = pop * gdpPercap) %>%
+  head
 ```
 
 
@@ -223,14 +313,36 @@ Más información en https://dplyr.tidyverse.org/reference/summarise.html]
 ---
 # arrange()
 
-
+- Podemos reordenar los datos según otro criterio, por ejemplo, en vez de países, reordernarlos según año. 
 
 ```{r message=FALSE, warning=FALSE}
-
+gapminder %>%
+  arrange(year, country)
 ```
 
 .footnote[[*] 
 Más información en https://dplyr.tidyverse.org/reference/arrange.html]
+---
+# arrange()
+
+- Podemos reordenarlos de manera descendente
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  filter(year == 2007) %>%
+  arrange(desc(lifeExp))
+```
+
+---
+
+#Tip XX: Encontrar los top 5 valores más altos o más bajos
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  top_n(5, lifeExp) %>%
+  head
+```
+
 ---
 
 class: inverse, middle, center
@@ -253,15 +365,6 @@ class: inverse, middle, center
 # dplyr_at: realizar una operación en un set de variables basados en los nombres de las variables
 
 ---
-# select_all()
-
-- Permite seleccionar todas las columnas y aplicar una operación a todas las columnas
-
-```{r message=FALSE, warning=FALSE}
-gap4 <- gapminder %>%
-    select_all(toupper)
-gap4
-```
 
 ---
 
@@ -279,16 +382,41 @@ gap5
 - Permite seleccionar las columnas teniendo en cuenta alguna condición
 
 ```{r message=FALSE, warning=FALSE}
-gap6 <- gapminder %>%
-  select_if(is.numeric)
-gap6
+
 ```
 ---
 
 ## filter_all(): filtrar según las condicione que se indican
---
 ## filter_if():requiere una función que retorne un booleano para indicar que columnas serán filtradas. Si es verdadero, se ejecutará la orden
---
-## 
+## filter_at(): 
 
 ---
+## summarise_all():
+
+gapminder %>%
+  group_by(continent) %>%
+  summarise_all(mean)
+
+
+---
+
+## summarise_if():
+_ Requiere dos argumentos 
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  group_by(continent) %>%
+  summarise_if(is.numeric, mean, na.rm=TRUE)
+```
+
+
+
+
+
+--- 
+
+class: inverse, middle, center
+
+
+
+

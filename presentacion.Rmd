@@ -6,6 +6,9 @@ date: "-- de Agosto de 2019"
 output:
   xaringan::moon_reader:
     css: ["default", "rladies", "rladies-fonts"]
+    nature: 
+      highlightStyle: github
+      highlightLines: true
 ---
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
@@ -16,14 +19,21 @@ class: center, middle
 
 ---
 
+
+---
 class: inverse, center, middle
 
+<img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
+
 # ¿Qué vamos a ver hoy?
+
 ### 1° Parte: Funciones útiles 
 ### 2° Parte: Funciones Principales
 ### 3° Parte: Otras funcionalidades
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 # Dataset: Gapminder
 ```{r eval=FALSE, tidy=FALSE}
 install.packages("gapminder")
@@ -51,13 +61,13 @@ ggplot(filter(gapminder, year==2007), aes(x = gdpPercap, y = lifeExp)) +
 ```
 ]
 .pull-right[
-```{r ref.label = 'plot-last', echo = FALSE}
+```{r ref.label = 'plot-last', echo = FALSE, fig.retina=3}
 ```
 ]
 ---
 
-
 ---
+
 # data.frame vs. tibble
 - data.frame es una estructura nativas de rbase y está disponible sin necesidad de instalar ningún paquete adicional. Es una estructura tabular organizada en filas y columnas. Se puede acceder a las columnas mediantes colnames() y los nombres de las filas, como rownames().
 - tibble, sin embargo, es parte de tidyverse. También presenta una estructura tabular, en filas y columnas. Los tibbles eliminan los rownames por defecto, para tener mejor compatibilidad con bases de datos SQL.
@@ -89,12 +99,17 @@ iris %>% .[["Sepal.Length"]]
 
 
 ---
+
 class: inverse, middle, center
+<img src="http://bit.ly/2GbpWVi" width="20%" align="center" />
 
 # Funciones Útiles
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 # Funciones Útiles
+
 ###Cargamos el paquete dplyr
 ```{r message=FALSE, warning=FALSE}
 library(dplyr)
@@ -107,7 +122,10 @@ head(gapminder)
 ```
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 #Funciones Útiles 
+
 ## tail()
 ```{r }
 tail(gapminder)
@@ -115,7 +133,10 @@ tail(gapminder)
 
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 #Funciones Útiles
+
 ## glimpse()
 ```{r }
 glimpse(gapminder)
@@ -123,7 +144,10 @@ glimpse(gapminder)
 
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 #Funciones Útiles
+
 ## slice()
 ```{r gapminder, warning=FALSE}
 dplyr::slice(gapminder, 5L)
@@ -131,7 +155,10 @@ dplyr::slice(gapminder, 5L)
 
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 #Funciones Útiles
+
 ## str()
 
 ```{r }
@@ -139,7 +166,10 @@ str(gapminder)
 ```
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 #Funciones Útiles
+
 ## summary()
 
 ```{r }
@@ -162,19 +192,26 @@ class: inverse, middle, center
 ---
 class: inverse, middle, center
 
+<img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
+
+
 # Funciones principales de dplyr 
 
 ---
-
 class: middle, center
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
+
 
 ## select(): extraer columnas
 ## filter(): extraer filas siguiendo una restricción lógica
 ## mutate(): derivar nuevas variables
 ## summarise(): cambiar la unidad de análisis
 ## arrange(): organizar filas por variables
+## group_by(): agrupa según un determinado criterio
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
 # select()
 
@@ -189,6 +226,8 @@ gapminder %>%
 Mas información en https://dplyr.tidyverse.org/reference/select.html]
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 # select()
 - Podemos renombrar variables
 
@@ -197,6 +236,8 @@ Mas información en https://dplyr.tidyverse.org/reference/select.html]
 ```
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 #Tip 1: si tenemos que seleccionar las mismas columnas muchas veces
 
 ```{r message=FALSE, warning=FALSE}
@@ -206,6 +247,7 @@ gapminder %>%
   select(!!cols)
 ```
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
 #Tip 2: seleccionar según una expresión regular (regex)
 
@@ -216,6 +258,8 @@ gapminder %>%
 ```
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 #Tip 3: para reordenar columnas
 
 ```{r message=FALSE, warning=FALSE}
@@ -225,6 +269,8 @@ gapminder %>%
 ```
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 # select_all()
 
 - Permite seleccionar todas las columnas y aplicar una operación a todas las columnas
@@ -243,6 +289,7 @@ gapminder %>%
 ```
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
 # filter()
 
@@ -257,6 +304,8 @@ head(gap2)
 .footnote[[*]
 Mas información en https://dplyr.tidyverse.org/reference/filter.html]
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 # filter()
 
 - Si queremos realizar un filtrado según un rango, lo hacemos de la siguiente manera
@@ -269,6 +318,8 @@ gapminder %>%
 ```
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 
 - También podemos hacerlo combinando con between():
 
@@ -282,6 +333,7 @@ gapminder %>%
 
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
 # mutate()
 
@@ -298,6 +350,8 @@ gapminder %>%
 Más información en https://dplyr.tidyverse.org/reference/mutate.html]
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 # summarise()
 
 
@@ -311,7 +365,41 @@ gdp_bycontinents
 .footnote[[*] 
 Más información en https://dplyr.tidyverse.org/reference/summarise.html]
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
+# summarise_all()
+
+- Requiere una función que se aplicará a todas las columnas
+
+```{r message=FALSE, warning=FALSE}
+iris %>%
+  group_by(Species) %>%
+  summarise_all(mean)%>%
+  head
+```
+
+
+---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
+#summarise_at()
+
+- Requiere dos argumentos, uno indicando las columnas que se tendrán en cuenta, y luego forma en que se resumirán los datos.  
+
+```{r message=FALSE, warning=FALSE}
+iris %>%
+  group_by(Species) %>%
+  summarise_at(vars(contains("Sepal")), mean)
+  head
+```
+
+
+
+---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 # arrange()
+
 
 - Podemos reordenar los datos según otro criterio, por ejemplo, en vez de países, reordernarlos según año. 
 
@@ -323,6 +411,8 @@ gapminder %>%
 .footnote[[*] 
 Más información en https://dplyr.tidyverse.org/reference/arrange.html]
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 # arrange()
 
 - Podemos reordenarlos de manera descendente
@@ -334,8 +424,9 @@ gapminder %>%
 ```
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
-#Tip XX: Encontrar los top 5 valores más altos o más bajos
+#Tip: Encontrar los top 5 valores más altos o más bajos
 
 ```{r message=FALSE, warning=FALSE}
 gapminder %>%
@@ -376,6 +467,7 @@ gap5
 ```
 
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
 # select_if()
 

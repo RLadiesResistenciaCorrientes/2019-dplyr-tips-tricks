@@ -306,6 +306,35 @@ Mas información en https://dplyr.tidyverse.org/reference/filter.html]
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
+# filter():
+
+Podemos filtrar según múltiples condiciones:
+- Se cumplen ambas condiciones 
+
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+filter(condicion1, condicion2)
+```
+
+- Se cumple la condición 1 solamente
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+filter(condicion1, !condicion2)
+```
+
+- Se cumplen las condiciones y/ o la condición 2
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+filter(condicion1 | condicion2)
+```
+
+- Se cumple una u otra condición, pero no ambas (disyunción exclusiva)
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+filter(xor(condicion1, condicion2))
+```
+
+
+
+---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 # filter()
 
 - Si queremos realizar un filtrado según un rango, lo hacemos de la siguiente manera
@@ -329,7 +358,6 @@ gapminder %>%
   filter(between(lifeExp, 60, 85)) %>%
   head
 ```
-
 
 
 ---
@@ -390,7 +418,6 @@ iris %>%
 iris %>%
   group_by(Species) %>%
   summarise_at(vars(contains("Sepal")), mean)
-  head
 ```
 
 

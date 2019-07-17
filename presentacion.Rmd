@@ -27,9 +27,9 @@ class: inverse, center, middle
 
 # ¿Qué vamos a ver hoy?
 
-### 1° Parte: Funciones útiles 
-### 2° Parte: Funciones Principales
-### 3° Parte: Otras funcionalidades
+### Funciones útiles 
+### Funciones Principales
+### Otras funcionalidades
 
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
@@ -65,7 +65,9 @@ ggplot(filter(gapminder, year==2007), aes(x = gdpPercap, y = lifeExp)) +
 ```
 ]
 ---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
+## aca va lo de gganimate 
 ---
 
 # data.frame vs. tibble
@@ -95,8 +97,6 @@ tibble::as_tibble(iris)
 iris %>% .$Sepal.Length
 iris %>% .[["Sepal.Length"]]
 ```
-
-
 
 ---
 
@@ -177,16 +177,29 @@ summary(gapminder)
 ```
 
 ---
+
 class: inverse, middle, center
 
 # Operador pipe 
 # %>%
 
 ---
+<img src="hex-pipes.jpg" width="10%" align="right" alt="pipe operator"/>
+
 # Operador pipe %>%
 - El operador pipe nos permite concatenar funciones y objetos en R, de forma que el código tenga un aspecto más ordenado, siguiendo la filosofía de tidyverse. 
 
+```{r warning=FALSE, message=FALSE}
+library(magrittr)
+gapminder %>%
+  filter(country=="Argentina")%>%
+  select(gdpPercap, year) %>%
+  head(3)
+```
 
+```{r warning=FALSE, message=FALSE}
+head(select(filter(gapminder, country=="Argentina"), gdpPercap, year), 3)
+```
 
 
 ---
@@ -201,14 +214,25 @@ class: inverse, middle, center
 class: middle, center
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
-
-
 ## select(): extraer columnas
 ## filter(): extraer filas siguiendo una restricción lógica
 ## mutate(): derivar nuevas variables
 ## summarise(): cambiar la unidad de análisis
 ## arrange(): organizar filas por variables
 ## group_by(): agrupa según un determinado criterio
+
+---
+class: inverse, middle, center
+
+# Otras funcionalidades de dplyr 
+
+---
+class: middle, center
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
+# dplyr_all: realizar una operación a todas las variables
+# dplyr_if: realizar una operación en un set de columnas o filas que fueron seleccionadas según sus características
+# dplyr_at: realizar una operación en un set de columnas o filas basados en los nombres de las variables
 
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
@@ -225,15 +249,6 @@ gapminder %>%
 .footnote[[*]
 Mas información en https://dplyr.tidyverse.org/reference/select.html]
 
----
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
-
-# select()
-- Podemos renombrar variables
-
-```{r }
-
-```
 
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
@@ -291,6 +306,25 @@ gapminder %>%
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
+# Tip: renombrar las variables de una sola vez 
+
+```{r warning=FALSE}
+iris %>%
+  head(1)
+```
+
+
+```{r warning=FALSE}
+library(stringr)
+iris2 <- iris %>%
+  select_all(tolower) %>%
+  rename_all(~str_replace_all(., "\\.", "_")) %>%
+  head(2)
+```
+
+---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 # filter()
 
 - Realizamos el filtrado según un valor numérico de una variable. Para ello utilizamos los siguientes operadores: >, >=, <, =<, ==, !=
@@ -306,7 +340,7 @@ Mas información en https://dplyr.tidyverse.org/reference/filter.html]
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
-# filter():
+# filter()
 
 Podemos filtrar según múltiples condiciones:
 - Se cumplen ambas condiciones 
@@ -329,8 +363,6 @@ filter(condicion1 | condicion2)
 ```{r message=FALSE, warning=FALSE, eval=FALSE}
 filter(xor(condicion1, condicion2))
 ```
-
-
 
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
@@ -420,8 +452,6 @@ iris %>%
   summarise_at(vars(contains("Sepal")), mean)
 ```
 
-
-
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
@@ -475,14 +505,6 @@ class: inverse, middle, center
 # dplyr_if
 # dplyr_at
 
----
-class: inverse, middle, center
-
-# dplyr_all: realizar una operación a todas las variables
-# dplyr_if: realizar una operación en un set de variables que fueron seleccionadas según sus características
-# dplyr_at: realizar una operación en un set de variables basados en los nombres de las variables
-
----
 
 ---
 
@@ -529,13 +551,7 @@ gapminder %>%
 ```
 
 
-
-
-
 --- 
-
-class: inverse, middle, center
-
 
 
 

@@ -253,6 +253,20 @@ Mas información en https://dplyr.tidyverse.org/reference/select.html]
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
+# Funciones útiles para combinar con select()
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+función <- c("-", ":", "contains()", "start_with()", "ends_with()", "everything()", "matches()", "num_range()")
+descripción <- c("selecciona todos menos", "selecciona un rango", "selecciona variables cuyo nombre contiene...", "selecciona variables cuyo nombre empieza con ...", "selecciona variables cuyo nombre empieza con...", "selecciona todas las columnas", "selecciona variables cuyo nombre coincide con...", "selecciona variables por posición")
+library(magrittr)
+tableX <- cbind(función, descripción)
+tableX %>%
+  knitr::kable(format="html")
+```
+
+
+---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 #Tip 1: si tenemos que seleccionar las mismas columnas muchas veces
 
 ```{r message=FALSE, warning=FALSE}
@@ -306,7 +320,7 @@ gapminder %>%
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
-# Tip: renombrar las variables de una sola vez 
+# Tip 4: renombrar las variables de una sola vez 
 
 ```{r warning=FALSE}
 iris %>%
@@ -427,6 +441,34 @@ Más información en https://dplyr.tidyverse.org/reference/summarise.html]
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
+#Funciones útiles para combinar con summarise():
+
+
+.pull-left[
+#### rbase
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+funciones <- c("min(), max()", "mean()", "median()", "sum()", "var(), sd()")
+descripción <- c("valores mínimos y máximos", "media", "mediana", "suma de los valores", "varianza y desviación típica")
+table1 <- cbind(funciones, descripción)
+table1 %>%
+  knitr::kable(format="html")
+```
+]
+.pull-right[
+#### dplyr
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+dplyr <- c("first()", "last()", "n()", "n_distinct()", "nth()")
+descripción <- c("primer valor de un vector", "último valor de un vector", "el numero de valores en un vector", "número de valores distintos en un vector", "extraer el valor que ocupa la posición n en un vector")
+table2 <- cbind(dplyr, descripción)
+table2 %>%
+  knitr::kable(format="html")
+```
+]
+
+
+---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
 # summarise_all()
 
 - Requiere una función que se aplicará a todas las columnas
@@ -510,9 +552,9 @@ class: inverse, middle, center
 
 -Para deshacer el cambio anterior
 ```{r message=FALSE, warning=FALSE}
-gap5 <- gapminder %>%
-    select_all(tolower)
-gap5
+gapminder %>%
+  select_all(tolower) %>%
+  head(4)
 ```
 
 ---

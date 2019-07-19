@@ -221,6 +221,8 @@ class: middle, center
 
 ---
 class: inverse, middle, center
+<img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
+
 
 # Otras funcionalidades de dplyr 
 

@@ -19,8 +19,6 @@ class: center, middle
 
 ---
 
-
----
 class: inverse, center, middle
 
 <img src="http://bit.ly/2GbpWVi" width="20%" align="top" />

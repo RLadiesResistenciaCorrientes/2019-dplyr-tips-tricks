@@ -42,7 +42,7 @@ install.packages("gapminder")
 library(ggplot2)
 library(gapminder)
 library(dplyr)
-ggplot(filter(gapminder, year==2007), aes(x = gdpPercap, y = lifeExp)) +
+ggplot(filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) +
   scale_x_log10(labels = scales::dollar) +
   geom_point(aes(size = pop, fill = continent), shape = 21, colour = "white", alpha = 0.6) +
   scale_fill_brewer(palette = "Set2") +
@@ -233,6 +233,22 @@ class: middle, center
 # dplyr_all: realizar una operación a todas las variables
 # dplyr_if: realizar una operación en un set de columnas o filas que fueron seleccionadas según sus características
 # dplyr_at: realizar una operación en un set de columnas o filas basados en los nombres de las variables
+
+---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
+# Consultar la documentación 
+
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+?dplyr::select
+?dplyr::filter
+?dplyr::mutate
+?dplyr::arrange
+?dplyr::summarise
+?dplyr::group_by
+```
+
+
 
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
@@ -582,9 +598,8 @@ gapminder %>%
 
 
 ---
-
 ## summarise_if():
-_ Requiere dos argumentos 
+- Requiere dos argumentos 
 
 ```{r message=FALSE, warning=FALSE}
 gapminder %>%
@@ -592,8 +607,88 @@ gapminder %>%
   summarise_if(is.numeric, mean, na.rm=TRUE)
 ```
 
+---
 
---- 
+class: inverse, center, middle
+
+<img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
+
+# Split - Apply - Combine 
+# con dplyr
+
+---
+
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
+## Split - Apply - Combine con dplyr
+
+- Definimos la función
+
+```{r message=FALSE, warning=FALSE}
+fun <- function(slice, keys) {
+broom::tidy(lm(Petal.Length ~ Sepal.Length, data = slice))
+}
+```
+
+- Aplicamos split - apply - combine
+```{r message=FALSE, warning=FALSE}
+iris %>%
+  group_by(Species) %>%
+  group_modify(fun)
+```
+
+---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
+# Tambien podemos hacerlo con una función lambda
+
+- Una función lambda es una función que se define al momento que la estamos usando, y generalmente no tiene un nombre. 
+
+```{r message=FALSE, warning=FALSE}
+iris %>%
+  group_by(Species) %>%
+  group_modify(~ broom::tidy(lm(Petal.Length ~ Sepal.Length, data = .x))
+)
+```
 
 
+---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
+# group_map()
+
+- Con group_map() también aplico una función pero el resultado es una lista. Los datos se modelan por separado. 
+
+```{r message=FALSE, warning=FALSE}
+iris %>%
+group_by(Species) %>%
+group_map(~ lm(Petal.Length ~ Sepal.Length, data = .x))
+```
+
+---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
+#group_split()
+
+```{r message=FALSE, warning=FALSE}
+iris %>%
+  group_by(Species) %>%
+  group_split()
+```
+
+
+---
+
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
+#group_data()
+
+
+```{r message=FALSE, warning=FALSE}
+iris %>%
+  group_by(Species) %>%
+  group_data()
+```
+
+---
 

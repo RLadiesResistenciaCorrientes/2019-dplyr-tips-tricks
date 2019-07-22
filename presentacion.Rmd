@@ -49,7 +49,7 @@ class: inverse, center, middle
 
 # Dataset: gapminder
 ```{r eval=FALSE, tidy=FALSE}
-install.packages("gapminder")
+install.packages("gapminder") #<<
 ```
 --
 .pull-left[
@@ -258,22 +258,6 @@ class: middle, center
 ## dplyr_all: realizar una operación a todas las variables
 ## dplyr_if: realizar una operación en un set de columnas o filas que fueron seleccionadas según sus características
 ## dplyr_at: realizar una operación en un set de columnas o filas basados en los nombres de las variables
-
----
-<img src="dplyr.png" width="10%" align="right" />
-
-# Consultar la documentación 
-- Podemos consultar la documentación de R si tenemos dudas:
-
-```{r message=FALSE, warning=FALSE, eval=FALSE}
-?dplyr::select
-?dplyr::filter
-?dplyr::mutate
-?dplyr::arrange
-?dplyr::summarise
-?dplyr::group_by
-```
-
 
 ---
 <img src="dplyr.png" width="10%" align="right" />
@@ -683,29 +667,6 @@ group_by(Species) %>%
 group_map(~ lm(Petal.Length ~ Sepal.Length, data = .x))
 ```
 
----
-<img src="dplyr.png" width="10%" align="right" />
-
-#group_split()
-
-```{r message=FALSE, warning=FALSE}
-iris %>%
-  group_by(Species) %>%
-  group_split()
-```
-
----
-
-<img src="dplyr.png" width="10%" align="right" />
-
-#group_data()
-
-
-```{r message=FALSE, warning=FALSE}
-iris %>%
-  group_by(Species) %>%
-  group_data()
-```
 
 ---
 class: inverse, center, middle
@@ -754,7 +715,35 @@ class: inverse, center, middle
 
 ## Split - Apply - Combine con dplyr
 
--- 
+--
 ## Joins
 
 ---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Si tenemos dudas 
+## Podemos consultar la documentación
+
+--
+
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+?dplyr::select
+?dplyr::filter
+?dplyr::mutate
+?dplyr::arrange
+?dplyr::summarise
+?dplyr::group_by
+```
+
+--
+<img src="cover.png" width="20%" align="left" />
+--
+<img src="r4ds-es.png" width="20%" align="right" />
+
+---
+class: inverse, center, middle
+
+<img src="dplyr.png" width="20%" align="center" />
+
+
+# Muchas Gracias!!

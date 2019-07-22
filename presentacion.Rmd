@@ -28,7 +28,7 @@ class: center, middle
 ---
 class: inverse, center, middle
 
-<img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
+<img src="dplyr.png" width="20%" align="top" />
 
 # ¿Qué vamos a ver hoy?
 
@@ -37,7 +37,7 @@ class: inverse, center, middle
 ### Otras funcionalidades
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # Data Science Workflow
 
@@ -45,7 +45,7 @@ class: inverse, center, middle
 
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # Dataset: gapminder
 ```{r eval=FALSE, tidy=FALSE}
@@ -123,12 +123,12 @@ iris %>% .[["Sepal.Length"]]
 ---
 
 class: inverse, middle, center
-<img src="http://bit.ly/2GbpWVi" width="20%" align="center" />
+<img src="dplyr.png" width="20%" align="center" />
 
 # Funciones Útiles
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # Funciones Útiles
 
@@ -144,7 +144,7 @@ head(gapminder)
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #Funciones Útiles 
 
@@ -155,7 +155,7 @@ tail(gapminder)
 
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #Funciones Útiles
 
@@ -166,7 +166,7 @@ glimpse(gapminder)
 
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #Funciones Útiles
 
@@ -177,7 +177,7 @@ dplyr::slice(gapminder, 5L)
 
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #Funciones Útiles
 
@@ -188,7 +188,7 @@ str(gapminder)
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #Funciones Útiles
 
@@ -228,7 +228,7 @@ head(select(filter(gapminder, country=="Argentina"), gdpPercap, year), 3)
 ---
 class: inverse, middle, center
 
-<img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
+<img src="dplyr.png" width="20%" align="top" />
 
 
 # Funciones principales de dplyr 
@@ -246,7 +246,7 @@ class: middle, center
 ---
 class: inverse, middle, center
 
-<img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
+<img src="dplyr.png" width="20%" align="top" />
 
 
 # Otras funcionalidades de dplyr 
@@ -260,7 +260,7 @@ class: middle, center
 ## dplyr_at: realizar una operación en un set de columnas o filas basados en los nombres de las variables
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # Consultar la documentación 
 - Podemos consultar la documentación de R si tenemos dudas:
@@ -276,7 +276,7 @@ class: middle, center
 
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # select()
 
@@ -292,7 +292,7 @@ Mas información en https://dplyr.tidyverse.org/reference/select.html]
 
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # Funciones útiles para combinar con select()
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
@@ -306,7 +306,7 @@ tableX %>%
 
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #Tip 1: si tenemos que seleccionar las mismas columnas muchas veces
 
@@ -317,7 +317,7 @@ gapminder %>%
   select(!!cols)
 ```
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #Tip 2: seleccionar según una expresión regular (regex)
 
@@ -328,7 +328,7 @@ gapminder %>%
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #Tip 3: para reordenar columnas
 
@@ -339,7 +339,7 @@ gapminder %>%
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # select_all()
 
@@ -359,7 +359,7 @@ gapminder %>%
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # Tip 4: renombrar las variables de una sola vez 
 
@@ -378,7 +378,7 @@ iris %>%
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # filter()
 
@@ -393,7 +393,7 @@ head(gap2)
 .footnote[[*]
 Mas información en https://dplyr.tidyverse.org/reference/filter.html]
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # filter()
 
@@ -420,7 +420,7 @@ filter(xor(condicion1, condicion2))
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # filter()
 
@@ -434,7 +434,7 @@ gapminder %>%
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 
 - También podemos hacerlo combinando con between():
@@ -448,7 +448,7 @@ gapminder %>%
 
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # mutate()
 
@@ -465,7 +465,7 @@ gapminder %>%
 Más información en https://dplyr.tidyverse.org/reference/mutate.html]
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # summarise()
 
@@ -480,7 +480,7 @@ gdp_bycontinents
 .footnote[[*] 
 Más información en https://dplyr.tidyverse.org/reference/summarise.html]
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #Funciones útiles para combinar con summarise():
 
@@ -508,7 +508,7 @@ table2 %>%
 
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # summarise_all()
 
@@ -523,7 +523,7 @@ iris %>%
 
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #summarise_at()
 
@@ -536,7 +536,7 @@ iris %>%
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # arrange()
 
@@ -550,7 +550,7 @@ gapminder %>%
 .footnote[[*] 
 Más información en https://dplyr.tidyverse.org/reference/arrange.html]
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # arrange()
 
@@ -563,7 +563,7 @@ gapminder %>%
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #Tip: Encontrar los top 5 valores más altos o más bajos
 
@@ -598,7 +598,7 @@ gapminder %>%
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # select_if()
 
@@ -630,14 +630,14 @@ gapminder %>%
 
 class: inverse, center, middle
 
-<img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
+<img src="dplyr.png" width="20%" align="top" />
 
 # Split - Apply - Combine 
 # con dplyr
 
 ---
 
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 ## Split - Apply - Combine con dplyr
 
@@ -657,7 +657,7 @@ iris %>%
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # Tambien podemos hacerlo con una función lambda
 
@@ -671,7 +671,7 @@ iris %>%
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 # group_map()
 
@@ -684,7 +684,7 @@ group_map(~ lm(Petal.Length ~ Sepal.Length, data = .x))
 ```
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #group_split()
 
@@ -696,7 +696,7 @@ iris %>%
 
 ---
 
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #group_data()
 
@@ -710,12 +710,12 @@ iris %>%
 ---
 class: inverse, center, middle
 
-<img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
+<img src="dplyr.png" width="20%" align="top" />
 
 #Joins
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 #Joins
 
@@ -728,7 +728,7 @@ class: inverse, center, middle
 
 
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="dplyr.png" width="10%" align="right" />
 
 ### Filtering Joins
 
@@ -737,7 +737,7 @@ class: inverse, center, middle
 ---
 class: inverse, center, middle
 
-<img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
+<img src="dplyr.png" width="20%" align="top" />
 
 # ¿Qué vimos?
 

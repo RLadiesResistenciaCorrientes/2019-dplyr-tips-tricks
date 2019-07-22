@@ -18,7 +18,6 @@ class: center, middle
 # Bienvenidas!!
 
 ---
-
 class: inverse, center, middle
 
 <img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
@@ -28,6 +27,14 @@ class: inverse, center, middle
 ### Funciones útiles 
 ### Funciones Principales
 ### Otras funcionalidades
+
+---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
+# Data Science Workflow
+
+<img src="ds-w.png" width="90%" align="center" />
+
 
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
@@ -63,10 +70,12 @@ ggplot(filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) +
 ```
 ]
 ---
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+<img src="gganimate.png" width="10%" align="right" />
 
 ## aca va lo de gganimate 
 ---
+<img src="tibble.png" width="10%" align="right" />
+
 
 # data.frame vs. tibble
 - data.frame es una estructura nativas de rbase y está disponible sin necesidad de instalar ningún paquete adicional. Es una estructura tabular organizada en filas y columnas. Se puede acceder a las columnas mediantes colnames() y los nombres de las filas, como rownames().
@@ -175,14 +184,15 @@ summary(gapminder)
 ```
 
 ---
-
 class: inverse, middle, center
+
+<img src="hex-pipes.png" width="25%" align="center" />
 
 # Operador pipe 
 # %>%
 
 ---
-<img src="hex-pipes.jpg" width="10%" align="right" alt="pipe operator"/>
+<img src="hex-pipes.png" width="10%" align="right" />
 
 # Operador pipe %>%
 - El operador pipe nos permite concatenar funciones y objetos en R, de forma que el código tenga un aspecto más ordenado, siguiendo la filosofía de tidyverse. 
@@ -210,7 +220,6 @@ class: inverse, middle, center
 
 ---
 class: middle, center
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
 ## select(): extraer columnas
 ## filter(): extraer filas siguiendo una restricción lógica
@@ -221,23 +230,25 @@ class: middle, center
 
 ---
 class: inverse, middle, center
+
 <img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
 
 
 # Otras funcionalidades de dplyr 
 
 ---
-class: middle, center
-<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
-# dplyr_all: realizar una operación a todas las variables
-# dplyr_if: realizar una operación en un set de columnas o filas que fueron seleccionadas según sus características
-# dplyr_at: realizar una operación en un set de columnas o filas basados en los nombres de las variables
+class: middle, center
+
+## dplyr_all: realizar una operación a todas las variables
+## dplyr_if: realizar una operación en un set de columnas o filas que fueron seleccionadas según sus características
+## dplyr_at: realizar una operación en un set de columnas o filas basados en los nombres de las variables
 
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
 # Consultar la documentación 
+- Podemos consultar la documentación de R si tenemos dudas:
 
 ```{r message=FALSE, warning=FALSE, eval=FALSE}
 ?dplyr::select
@@ -247,7 +258,6 @@ class: middle, center
 ?dplyr::summarise
 ?dplyr::group_by
 ```
-
 
 
 ---
@@ -346,7 +356,7 @@ iris %>%
 
 ```{r warning=FALSE}
 library(stringr)
-iris2 <- iris %>%
+iris %>%
   select_all(tolower) %>%
   rename_all(~str_replace_all(., "\\.", "_")) %>%
   head(2)
@@ -515,7 +525,6 @@ iris %>%
 
 # arrange()
 
-
 - Podemos reordenar los datos según otro criterio, por ejemplo, en vez de países, reordernarlos según año. 
 
 ```{r message=FALSE, warning=FALSE}
@@ -585,11 +594,6 @@ gapminder %>%
 ```
 ---
 
-## filter_all(): filtrar según las condicione que se indican
-## filter_if():requiere una función que retorne un booleano para indicar que columnas serán filtradas. Si es verdadero, se ejecutará la orden
-## filter_at(): 
-
----
 ## summarise_all():
 
 gapminder %>%
@@ -651,7 +655,6 @@ iris %>%
 )
 ```
 
-
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
@@ -676,7 +679,6 @@ iris %>%
   group_split()
 ```
 
-
 ---
 
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
@@ -691,4 +693,53 @@ iris %>%
 ```
 
 ---
+class: inverse, center, middle
 
+<img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
+
+#Joins
+
+---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
+#Joins
+
+- Cuando trabajamos con más de un dataset y necesitamos crear una base de datos a partir de dos o más set de datos, necesitamos realizar una operación llamada **JOIN**
+- Existen distintos tipos de **JOIN** según que dataset querramos mantener, y, también de acuerdo si se crean columnas nuevas (**mutating joins**) o solo filtramos filas (**filtering joins**)
+
+### Mutating Joins
+
+<img src="joins1.png" width="160%" align="middle" />
+
+
+---
+<img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
+
+### Filtering Joins
+
+<img src="join2.png" width="160%" align="middle" />
+
+---
+class: inverse, center, middle
+
+<img src="http://bit.ly/2GbpWVi" width="20%" align="top" />
+
+# ¿Qué vimos?
+
+
+---
+
+## Funciones básicas de dplyr
+
+--
+
+## Trucos de dplyr
+
+--
+
+## Split - Apply - Combine con dplyr
+
+-- 
+## Joins
+
+---

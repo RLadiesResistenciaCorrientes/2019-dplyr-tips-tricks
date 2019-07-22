@@ -10,12 +10,20 @@ output:
       highlightStyle: github
       highlightLines: true
 ---
-```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
-```
+class: inverse, center, middle
+
+<img src="xaringan.png" width="20%" align="center" />
+<img src="rmarkdown.png" width="20%" align="left" />
+<img src="knitr.png" width="20%" align="right" />
+
+
+### Realizado con  rmarkdown, xaringan y knitr
+
+---
 class: center, middle
 
 # Bienvenidas!!
+
 
 ---
 class: inverse, center, middle
@@ -39,7 +47,7 @@ class: inverse, center, middle
 ---
 <img src="http://bit.ly/2GbpWVi" width="10%" align="right" />
 
-# Dataset: Gapminder
+# Dataset: gapminder
 ```{r eval=FALSE, tidy=FALSE}
 install.packages("gapminder")
 ```
@@ -73,9 +81,16 @@ ggplot(filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) +
 <img src="gganimate.png" width="10%" align="right" />
 
 ## aca va lo de gganimate 
+
+---
+<img src="gganimate.png" width="10%" align="right" />
+
+## Just give me the code
+
+<img src="gganimate_code.png" width="100%" align="center" />
+
 ---
 <img src="tibble.png" width="10%" align="right" />
-
 
 # data.frame vs. tibble
 - data.frame es una estructura nativas de rbase y está disponible sin necesidad de instalar ningún paquete adicional. Es una estructura tabular organizada en filas y columnas. Se puede acceder a las columnas mediantes colnames() y los nombres de las filas, como rownames().

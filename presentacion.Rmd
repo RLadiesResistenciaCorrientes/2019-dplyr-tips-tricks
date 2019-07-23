@@ -33,8 +33,8 @@ class: inverse, center, middle
 # ¿Qué vamos a ver hoy?
 
 ### Funciones útiles 
-### Funciones Principales
-### Otras funcionalidades
+### Funciones Principales + Tips
+### Joins 
 
 ---
 <img src="dplyr.png" width="10%" align="right" />
@@ -451,6 +451,16 @@ Más información en https://dplyr.tidyverse.org/reference/mutate.html]
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
+# Funciones vectorizadas para mutate()
+
+Las funciones vectorizadas toman como entrada un vector y la salida es un vector de 
+la misma longitud. 
+
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
 # summarise()
 
 
@@ -558,30 +568,6 @@ gapminder %>%
 ```
 
 ---
-
-class: inverse, middle, center
-
-# Otras funcionalidades de dplyr
-
----
-class: inverse, middle, center
-
-# Vamos a combinar los verbos anteriores con 
-# dplyr_all
-# dplyr_if
-# dplyr_at
-
-
----
-
--Para deshacer el cambio anterior
-```{r message=FALSE, warning=FALSE}
-gapminder %>%
-  select_all(tolower) %>%
-  head(4)
-```
-
----
 <img src="dplyr.png" width="10%" align="right" />
 
 # select_if()
@@ -654,19 +640,6 @@ iris %>%
 )
 ```
 
----
-<img src="dplyr.png" width="10%" align="right" />
-
-# group_map()
-
-- Con group_map() también aplico una función pero el resultado es una lista. Los datos se modelan por separado. 
-
-```{r message=FALSE, warning=FALSE}
-iris %>%
-group_by(Species) %>%
-group_map(~ lm(Petal.Length ~ Sepal.Length, data = .x))
-```
-
 
 ---
 class: inverse, center, middle
@@ -685,8 +658,10 @@ class: inverse, center, middle
 
 ### Mutating Joins
 
-<img src="joins1.png" width="160%" align="middle" />
+<img src="joins1.png" width="130%" align="middle" />
 
+.footnote[[*]
+Mas información en https://dplyr.tidyverse.org/reference/join.html]
 
 ---
 <img src="dplyr.png" width="10%" align="right" />
@@ -694,6 +669,59 @@ class: inverse, center, middle
 ### Filtering Joins
 
 <img src="join2.png" width="160%" align="middle" />
+
+```{r message=FALSE, warning=FALSE}
+dplyr::band_members
+```
+
+```{r message=FALSE, warning=FALSE}
+dplyr::band_instruments
+```
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+## Mutating Joins
+
+### Left Join
+
+```{r message=FALSE, warning=FALSE}
+band_members %>% left_join(band_instruments)
+```
+
+### Right Join
+```{r message=FALSE, warning=FALSE}
+band_members %>% right_join(band_instruments)
+```
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+### Full Join
+```{r message=FALSE, warning=FALSE}
+band_members %>% full_join(band_instruments)
+```
+
+### Inner Join
+```{r message=FALSE, warning=FALSE}
+band_members %>% full_join(band_instruments)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+## Filtering Joins
+
+### Semi Join
+```{r message=FALSE, warning=FALSE}
+band_members %>% semi_join(band_instruments)
+```
+
+### Anti Join 
+```{r message=FALSE, warning=FALSE}
+band_members %>% anti_join(band_instruments)
+```
+
 
 ---
 class: inverse, center, middle
@@ -747,3 +775,12 @@ class: inverse, center, middle
 
 
 # Muchas Gracias!!
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+```{r message=FALSE, warning=FALSE}
+sessionInfo()
+```
+
+---

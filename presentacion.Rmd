@@ -1,7 +1,7 @@
 ---
 title: "Rladies"
 subtitle: "⚔<br/> Resistencia Corrientes"
-author: "Trucos y tips de dplyr"
+author: "Tutorial de dplyr"
 date: "-- de Agosto de 2019"
 output:
   xaringan::moon_reader:
@@ -20,7 +20,10 @@ class: inverse, center, middle
 ### Realizado con  rmarkdown, xaringan y knitr
 
 ---
-class: center, middle
+class: inverse, center, middle
+
+<img src="logo-hex02.png" width="50%" align="center" />
+
 
 # Bienvenidas!!
 
@@ -54,10 +57,10 @@ install.packages("gapminder") #<<
 --
 .pull-left[
 ```{r plot-last, fig.show = 'hide', warning=FALSE, message=FALSE}
-library(ggplot2)
 library(gapminder)
 library(dplyr)
-ggplot(filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) +
+library(ggplot2)
+ggplot2::ggplot(filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) +
   scale_x_log10(labels = scales::dollar) +
   geom_point(aes(size = pop, fill = continent), shape = 21, colour = "white", alpha = 0.6) +
   scale_fill_brewer(palette = "Set2") +
@@ -762,11 +765,12 @@ class: inverse, center, middle
 ?dplyr::summarise
 ?dplyr::group_by
 ```
+--
 
---
-<img src="cover.png" width="20%" align="left" />
---
-<img src="r4ds-es.png" width="20%" align="right" />
+
+<img src="cover.png" width="20%" align="left"/>
+
+<img src="r4ds-es.png" width="20%" align="right"/>
 
 ---
 class: inverse, center, middle

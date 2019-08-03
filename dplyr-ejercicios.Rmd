@@ -2,7 +2,7 @@
 title: "Rladies"
 subtitle: "⚔<br/> Resistencia Corrientes"
 author: "Ejercicios dplyr"
-date: "-- de Agosto de 2019"
+date: "15 de Agosto de 2019"
 output:
   xaringan::moon_reader:
     css: ["default", "rladies", "rladies-fonts"]
@@ -133,7 +133,7 @@ gapminder %>%
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
-# 6. ¿Cuál son los 7 países con mayor esperanza de vida en el año 2002?
+# 6. ¿Cuáles son los 7 países con mayor esperanza de vida en el año 2002?
 
 ```{r , warning=FALSE, message=FALSE, echo=FALSE}
 gapminder %>%
@@ -261,43 +261,3 @@ https://garthtarr.github.io/meatR/dplyr_ex1.html
 
 
 ---
-<img src="dplyr.png" width="10%" align="right" />
-
-## Bonus. Vamos a crear esta visualización paso a paso
-
-
-```{r , warning=FALSE, message=FALSE, echo=FALSE}
-library(ggplot2)
-ggplot(data=gapminder,aes(x=gdpPercap,y=lifeExp,color=continent,
-  size = pop)) + geom_point() + 
-  scale_x_log10() + 
-  facet_wrap(~year)
-```
-
-
----
-<img src="dplyr.png" width="10%" align="right" />
-
-#### Cargamos librerías
-
-```{r , warning=FALSE, message=FALSE, eval=FALSE}
-library(ggplot2)
-```
-
-#### Creo un objeto
-
-```{r , warning=FALSE, message=FALSE, eval=FALSE}
-p <- ggplot(data=gapminder,aes(x=gdpPercap,y=lifeExp,color=continent, size = pop)) 
-```
-#### Agrego la capa geoms
-```{r , warning=FALSE, message=FALSE, eval=FALSE}
-p + geom_point() 
-```
-#### Paso X a escala logarítmica 
-```{r , warning=FALSE, message=FALSE, eval=FALSE}
-p + scale_x_log10()
-```
-#### Podemos ver por años mediante facet_wrap
-```{r , warning=FALSE, message=FALSE, eval=FALSE}
-p +  facet_wrap(~year)
-```

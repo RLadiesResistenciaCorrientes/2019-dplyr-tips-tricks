@@ -47,7 +47,28 @@ gapminder %>%
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
-## 2. Seleccionar los datos correspondientes al continente americano, correspondientes del año 80 en adelante. Los datos deben estar ordenados según los años más actuales. 
+# 2. Eliminar la columna correspondiente a la población en gapminder
+
+```{r , warning=FALSE, echo=FALSE}
+gapminder %>%
+  select(-pop)
+```
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Solución 
+
+```{r , warning=FALSE}
+gapminder %>%
+  select(-pop)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+## 3. Seleccionar los datos correspondientes al continente americano, correspondientes del año 80 en adelante. Los datos deben estar ordenados según los años más actuales. 
 
 ```{r , warning=FALSE, echo=FALSE}
 gapminder %>%
@@ -68,7 +89,7 @@ gapminder %>%
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
-# 3. Seleccionar las columnas correspondientes a ingresos per capita y esperanza de vida
+# 4. Seleccionar las columnas correspondientes a ingresos per capita y esperanza de vida
 
 ```{r , warning=FALSE, echo=FALSE}
 gapminder %>%
@@ -86,7 +107,7 @@ gapminder %>%
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
-# 4. Calcular la media por continente del ingreso per cápita y la esperanza de vida. Ordenarlos de mayor a menor según la esperanza de vida.
+# 5. Calcular la media por continente del ingreso per cápita y la esperanza de vida. Ordenarlos de mayor a menor según la esperanza de vida.
 
 ```{r , warning=FALSE, echo=FALSE}
 gapminder %>%
@@ -112,7 +133,137 @@ gapminder %>%
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
-## 5. Vamos a crear esta visualización paso a paso
+# 6. ¿Cuál son los 7 países con mayor esperanza de vida en el año 2002?
+
+```{r , warning=FALSE, message=FALSE, echo=FALSE}
+gapminder %>%
+  filter(year==2002) %>%
+  arrange(desc(lifeExp)) %>%
+  head(7)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Solución
+
+```{r , warning=FALSE, message=FALSE}
+gapminder %>%
+  filter(year==2002) %>%
+  arrange(desc(lifeExp)) %>%
+  head(7)
+```
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Solución 2
+### Podemos usar top_n() en vez de head(), pero... 
+
+```{r , warning=FALSE, message=FALSE}
+gapminder %>%
+  filter(year==2002) %>%
+  arrange(desc(lifeExp)) %>%
+  top_n(7, lifeExp)
+```
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# 7. ¿Cuáles son los países con menor esperanza de vida y menor ingreso en el año 2002?
+
+```{r , warning=FALSE, message=FALSE, echo=FALSE}
+gapminder %>%
+  filter(year==2002) %>%
+  arrange(lifeExp, gdpPercap) %>%
+  head(5)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#Solución
+
+```{r , warning=FALSE, message=FALSE}
+gapminder %>%
+  filter(year==2002) %>%
+  arrange(lifeExp, gdpPercap) %>%
+  head(5)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# 8. En el dataset iris, poner la columna species en primer lugar
+
+### Vamos a reordenar columnas
+
+```{r , warning=FALSE, message=FALSE, echo=FALSE}
+iris %>%
+  select(Species, everything()) %>%
+  head(5)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#Solución
+
+```{r , warning=FALSE, message=FALSE}
+iris %>%
+  select(Species, everything()) %>%
+  head(5)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# 9. Seleccionar la mitad (50%) del dataset gapminder_unfiltered 
+
+```{r , warning=FALSE, message=FALSE, echo=FALSE}
+gapminder_unfiltered %>%
+  sample_frac(size=0.5)
+```
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Solución
+
+```{r , warning=FALSE, message=FALSE}
+gapminder_unfiltered %>%
+  sample_frac(size=0.5)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# 10. Elegir los casos que están entre las filas 20 y 30. 
+
+```{r , warning=FALSE, message=FALSE, echo=FALSE}
+gapminder %>%
+  slice(20:30)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Solución
+
+```{r , warning=FALSE, message=FALSE}
+gapminder %>%
+  slice(20:30)
+```
+
+---
+# Para seguir practicando...
+
+https://garthtarr.github.io/meatR/dplyr_ex1.html
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+## Bonus. Vamos a crear esta visualización paso a paso
 
 
 ```{r , warning=FALSE, message=FALSE, echo=FALSE}

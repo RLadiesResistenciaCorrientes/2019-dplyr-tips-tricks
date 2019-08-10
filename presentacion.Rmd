@@ -1,0 +1,813 @@
+---
+title: "Rladies"
+subtitle: "⚔<br/> Resistencia Corrientes"
+author: "Tutorial de dplyr"
+date: "22 de Agosto de 2019"
+output:
+  xaringan::moon_reader:
+    css: ["default", "rladies", "rladies-fonts"]
+    nature: 
+      highlightStyle: github
+      highlightLines: true
+---
+class: inverse, center, middle
+
+<img src="xaringan.png" width="20%" align="center" />
+<img src="rmarkdown.png" width="20%" align="left" />
+<img src="knitr.png" width="20%" align="right" />
+
+
+### Realizado con  rmarkdown, xaringan y knitr
+
+---
+class: inverse, center, middle
+
+<img src="logo-hex02.png" width="50%" align="center" />
+
+
+# Bienvenidas!!
+
+
+---
+class: inverse, center, middle
+
+<img src="dplyr.png" width="20%" align="top" />
+
+# ¿Qué vamos a ver hoy?
+
+### Funciones útiles 
+### Funciones Principales + Tips
+### Joins 
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Nuestro material
+https://github.com/RLadiesResistenciaCorrientes/2019-dplyr-tips-tricks
+
+
+### Vignette de dplyr
+
+https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Data Science Workflow
+
+<img src="ds-w.png" width="90%" align="center" />
+
+
+---
+
+<img src="dplyr.png" width="10%" align="right" />
+
+### Data Science 
+
+<img src="ds.png" width="100%" align="middle" />
+
+.footnote[[*]
+_Hands on programming with R_ by Garret Grolemund]
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Dataset: gapminder
+```{r eval=FALSE, tidy=FALSE}
+install.packages("gapminder") #<<
+```
+--
+.pull-left[
+```{r plot-last, fig.show = 'hide', warning=FALSE, message=FALSE}
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+ggplot2::ggplot(filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)) +
+  scale_x_log10(labels = scales::dollar) +
+  geom_point(aes(size = pop, fill = continent), shape = 21, colour = "white", alpha = 0.6) +
+  scale_fill_brewer(palette = "Set2") +
+  scale_size_continuous(range = c(1, 20)) +
+  labs(title = "",
+       subtitle = "Relationship between life expectancy and income, 2007",
+       caption = "Source: Gapminder.org",
+       x = "GDP per capita ($)",
+       y = "Age (years)") +
+  guides(size = FALSE) +
+  theme(panel.grid.major.x = element_blank(),
+        legend.position = "right", 
+        legend.title = element_blank())
+```
+]
+.pull-right[
+```{r ref.label = 'plot-last', echo = FALSE, fig.retina=3}
+```
+]
+---
+<img src="gganimate.png" width="10%" align="right" />
+
+## aca va lo de gganimate 
+
+
+---
+<img src="gganimate.png" width="10%" align="right" />
+
+## Just give me the code
+
+```{r tidy=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+library(gganimate)
+ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
+  geom_point(alpha = 0.7) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  facet_wrap(~continent) +
+  theme(legend.position = 'none') +
+  labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +
+  transition_time(year)
+```
+
+
+
+---
+<img src="tibble.png" width="10%" align="right" />
+
+# data.frame vs. tibble
+- data.frame es una estructura nativas de rbase y está disponible sin necesidad de instalar ningún paquete adicional. Es una estructura tabular organizada en filas y columnas. Se puede acceder a las columnas mediantes colnames() y los nombres de las filas, como rownames().
+- tibble, sin embargo, es parte de tidyverse. También presenta una estructura tabular, en filas y columnas. Los tibbles eliminan los rownames por defecto, para tener mejor compatibilidad con bases de datos SQL.
+
+- Ambas formas son intercambiables mediante los comandos
+
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+rbase::as.data.frame()
+tidyverse::as_tibble()
+```
+
+--
+- Slicing
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+iris$Sepal.Length
+iris[["Sepal.Length"]]
+```
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE, echo=FALSE}
+tibble::as_tibble(iris)
+```
+
+
+```{r, message=FALSE, warning=FALSE, eval=FALSE}
+iris %>% .$Sepal.Length
+iris %>% .[["Sepal.Length"]]
+```
+
+---
+
+class: inverse, middle, center
+<img src="dplyr.png" width="20%" align="center" />
+
+# Funciones Útiles
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Funciones Útiles
+
+###Cargamos el paquete dplyr
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+library(gapminder)
+```
+--
+## head()
+```{r }
+head(gapminder)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#Funciones Útiles 
+
+## tail()
+```{r }
+tail(gapminder)
+```
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#Funciones Útiles
+
+## glimpse()
+```{r }
+glimpse(gapminder)
+```
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#Funciones Útiles
+
+## slice()
+```{r gapminder, warning=FALSE}
+dplyr::slice(gapminder, 5L)
+```
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#Funciones Útiles
+
+## str()
+
+```{r }
+str(gapminder)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#Funciones Útiles
+
+## summary()
+
+```{r }
+summary(gapminder)
+```
+
+---
+class: inverse, middle, center
+
+<img src="hex-pipes.png" width="25%" align="center" />
+
+# Operador pipe 
+# %>%
+
+---
+<img src="hex-pipes.png" width="10%" align="right" />
+
+# Operador pipe %>%
+- El operador pipe nos permite concatenar funciones y objetos en R, de forma que el código tenga un aspecto más ordenado, siguiendo la filosofía de tidyverse. 
+
+```{r warning=FALSE, message=FALSE}
+library(magrittr)
+gapminder %>%
+  filter(country=="Argentina")%>%
+  select(gdpPercap, year) %>%
+  head(3)
+```
+
+```{r warning=FALSE, message=FALSE}
+head(select(filter(gapminder, country=="Argentina"), gdpPercap, year), 3)
+```
+
+
+---
+class: inverse, middle, center
+
+<img src="dplyr.png" width="20%" align="top" />
+
+
+# Funciones principales de dplyr 
+
+---
+class: middle, center
+
+## select(): extraer columnas
+## filter(): extraer filas siguiendo una restricción lógica
+## mutate(): derivar nuevas variables
+## summarise(): cambiar la unidad de análisis
+## arrange(): organizar filas por variables
+## group_by(): agrupa según un determinado criterio
+
+---
+class: inverse, middle, center
+
+<img src="dplyr.png" width="20%" align="top" />
+
+
+# Otras funcionalidades de dplyr 
+
+---
+
+class: middle, center
+
+## dplyr_all: realizar una operación a todas las variables
+## dplyr_if: realizar una operación en un set de columnas o filas que fueron seleccionadas según sus características
+## dplyr_at: realizar una operación en un set de columnas o filas basados en los nombres de las variables
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# select()
+
+- Podemos extraer columnas
+
+```{r }
+gapminder %>%
+  select(country, lifeExp, gdpPercap)
+```
+
+.footnote[[*]
+Mas información en https://dplyr.tidyverse.org/reference/select.html]
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Funciones útiles para combinar con select()
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+función <- c("-", ":", "contains()", "start_with()", "ends_with()", "everything()", "matches()", "num_range()")
+descripción <- c("selecciona todos menos", "selecciona un rango", "selecciona variables cuyo nombre contiene...", "selecciona variables cuyo nombre empieza con ...", "selecciona variables cuyo nombre empieza con...", "selecciona todas las columnas", "selecciona variables cuyo nombre coincide con...", "selecciona variables por posición")
+library(magrittr)
+tableX <- cbind(función, descripción)
+tableX %>%
+  knitr::kable(format="html")
+```
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#Tip 1: si tenemos que seleccionar las mismas columnas muchas veces
+
+```{r message=FALSE, warning=FALSE}
+cols<-c("country", "lifeExp", "gdpPercap")
+
+gapminder %>%
+  select(!!cols)
+```
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#Tip 2: seleccionar según una expresión regular (regex)
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  select(matches("gdp"))%>%
+  head
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#Tip 3: para reordenar columnas
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  select("lifeExp", "gdpPercap", everything())%>%
+  head
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# select_all()
+
+- Permite seleccionar todas las columnas y aplicar una operación a todas las columnas
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  select_all(toupper) %>%
+  head
+```
+
+
+- Para deshacer el cambio anterior
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+gapminder %>%
+    select_all(tolower)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Tip 4: renombrar las variables de una sola vez 
+
+```{r warning=FALSE}
+iris %>%
+  head(1)
+```
+
+
+```{r warning=FALSE}
+library(stringr)
+iris %>%
+  select_all(tolower) %>%
+  rename_all(~str_replace_all(., "\\.", "_")) %>%
+  head(2)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# filter()
+
+- Realizamos el filtrado según un valor numérico de una variable. Para ello utilizamos los siguientes operadores: >, >=, <, =<, ==, !=
+
+```{r }
+gapminder %>%
+  filter(lifeExp > 80) %>%
+  head(3)
+```
+
+.footnote[[*]
+Mas información en https://dplyr.tidyverse.org/reference/filter.html]
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# filter()
+
+Podemos filtrar según múltiples condiciones:
+- Se cumplen ambas condiciones 
+
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+filter(condicion1, condicion2)
+```
+
+- Se cumple la condición 1 solamente
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+filter(condicion1, !condicion2)
+```
+
+- Se cumplen las condiciones y/ o la condición 2
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+filter(condicion1 | condicion2)
+```
+
+- Se cumple una u otra condición, pero no ambas (disyunción exclusiva)
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+filter(xor(condicion1, condicion2))
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# filter()
+
+- Si queremos realizar un filtrado según un rango, lo hacemos de la siguiente manera
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  select (country, lifeExp, year) %>%
+  filter(lifeExp >= 60, lifeExp < 85) %>%
+  head
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Tip 5: usar between() para especificar rangos
+
+- También podemos hacerlo combinando con between():
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  select (country, lifeExp, year) %>%
+  filter(between(lifeExp, 60, 85)) %>%
+  head
+```
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# mutate()
+
+- mutate() es una función que nos permite crear una nueva columna en un tibble, realizando una operación con otras ya existentes.
+
+```{r }
+gapminder %>%
+  mutate(gdp = pop * gdpPercap) %>%
+  head
+```
+
+
+.footnote[[*] 
+Más información en https://dplyr.tidyverse.org/reference/mutate.html]
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Tip 6
+### Si quisiéramos conservar la nueva columna en vez de mutate(), usamos transmute()
+
+```{r }
+gapminder %>%
+  transmute(gdp = pop * gdpPercap) %>%
+  head
+```
+
+
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# summarise()
+
+
+```{r message=FALSE, warning=FALSE}
+gdp_bycontinents <- gapminder %>%
+    group_by(continent) %>%
+    summarize(mean_gdpPercap=mean(gdpPercap))
+gdp_bycontinents
+```
+
+.footnote[[*] 
+Más información en https://dplyr.tidyverse.org/reference/summarise.html]
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#Funciones útiles para combinar con summarise():
+
+
+.pull-left[
+#### rbase
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+funciones <- c("min(), max()", "mean()", "median()", "sum()", "var(), sd()")
+descripción <- c("valores mínimos y máximos", "media", "mediana", "suma de los valores", "varianza y desviación típica")
+table1 <- cbind(funciones, descripción)
+table1 %>%
+  knitr::kable(format="html")
+```
+]
+.pull-right[
+#### dplyr
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+dplyr <- c("first()", "last()", "n()", "n_distinct()", "nth()")
+descripción <- c("primer valor de un vector", "último valor de un vector", "el numero de valores en un vector", "número de valores distintos en un vector", "extraer el valor que ocupa la posición n en un vector")
+table2 <- cbind(dplyr, descripción)
+table2 %>%
+  knitr::kable(format="html")
+```
+]
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# summarise_all()
+
+- Requiere una función que se aplicará a todas las columnas
+
+```{r message=FALSE, warning=FALSE}
+iris %>%
+  group_by(Species) %>%
+  summarise_all(mean)%>%
+  head
+```
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#summarise_at()
+
+- Requiere dos argumentos, uno indicando las columnas que se tendrán en cuenta, y luego forma en que se resumirán los datos.  
+
+```{r message=FALSE, warning=FALSE}
+iris %>%
+  group_by(Species) %>%
+  summarise_at(vars(contains("Sepal")), mean)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+## summarise_if():
+- Requiere dos argumentos 
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  group_by(continent) %>%
+  summarise_if(is.numeric, mean, na.rm=TRUE)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# arrange()
+
+- Podemos reordenar los datos según otro criterio, por ejemplo, en vez de países, reordernarlos según año. 
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  arrange(year, country)
+```
+
+.footnote[[*] 
+Más información en https://dplyr.tidyverse.org/reference/arrange.html]
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# arrange()
+
+- Podemos reordenarlos de manera descendente
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  filter(year == 2007) %>%
+  arrange(desc(lifeExp))
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#Tip 7: Encontrar los top 5 valores más altos o más bajos
+
+```{r message=FALSE, warning=FALSE}
+gapminder %>%
+  top_n(5, lifeExp) %>%
+  head
+```
+
+---
+class: inverse, center, middle
+
+<img src="dplyr.png" width="20%" align="top" />
+
+# Split - Apply - Combine 
+# con dplyr
+
+---
+
+<img src="dplyr.png" width="10%" align="right" />
+
+## Split - Apply - Combine con dplyr
+
+- Definimos la función
+
+```{r message=FALSE, warning=FALSE}
+fun <- function(slice, keys) {
+broom::tidy(lm(Petal.Length ~ Sepal.Length, data = slice))
+}
+```
+
+- Aplicamos split - apply - combine
+```{r message=FALSE, warning=FALSE}
+iris %>%
+  group_by(Species) %>%
+  group_modify(fun)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Tambien podemos hacerlo con una función anónima 
+
+- Una función anónima es una función que se define al momento que la estamos usando, y generalmente no tiene un nombre. En Python estas funciones se llaman funciones lambda. 
+
+```{r message=FALSE, warning=FALSE}
+iris %>%
+  group_by(Species) %>%
+  group_modify(~ broom::tidy(lm(Petal.Length ~ Sepal.Length, data = .x))
+)
+```
+
+
+---
+class: inverse, center, middle
+
+<img src="dplyr.png" width="20%" align="top" />
+
+#Joins
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+#Joins
+
+- Cuando trabajamos con más de un dataset y necesitamos crear una base de datos a partir de dos o más set de datos, necesitamos realizar una operación llamada **JOIN**
+- Existen distintos tipos de **JOIN** según que dataset querramos mantener, y, también de acuerdo si se crean columnas nuevas (**mutating joins**) o solo filtramos filas (**filtering joins**)
+
+### Mutating Joins
+
+<img src="joins1.png" width="130%" align="middle" />
+
+.footnote[[*]
+Mas información en https://dplyr.tidyverse.org/reference/join.html]
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+### Filtering Joins
+
+<img src="join2.png" width="160%" align="middle" />
+
+```{r message=FALSE, warning=FALSE}
+dplyr::band_members
+```
+
+```{r message=FALSE, warning=FALSE}
+dplyr::band_instruments
+```
+
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+## Mutating Joins
+
+### Left Join
+
+```{r message=FALSE, warning=FALSE}
+band_members %>% left_join(band_instruments)
+```
+
+### Right Join
+```{r message=FALSE, warning=FALSE}
+band_members %>% right_join(band_instruments)
+```
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+### Full Join
+```{r message=FALSE, warning=FALSE}
+band_members %>% full_join(band_instruments)
+```
+
+### Inner Join
+```{r message=FALSE, warning=FALSE}
+band_members %>% full_join(band_instruments)
+```
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+## Filtering Joins
+
+### Semi Join
+```{r message=FALSE, warning=FALSE}
+band_members %>% semi_join(band_instruments)
+```
+
+### Anti Join 
+```{r message=FALSE, warning=FALSE}
+band_members %>% anti_join(band_instruments)
+```
+
+
+---
+class: inverse, center, middle
+
+<img src="dplyr.png" width="20%" align="top" />
+
+# ¿Qué vimos?
+
+
+---
+
+## Funciones básicas de dplyr
+
+--
+
+## Trucos de dplyr
+
+--
+
+## Split - Apply - Combine con dplyr
+
+--
+## Joins
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+# Si tenemos dudas 
+### Podemos consultar la documentación
+
+--
+
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+?dplyr::select
+?dplyr::filter
+?dplyr::mutate
+?dplyr::arrange
+?dplyr::summarise
+?dplyr::group_by
+```
+--
+
+<img src="cover.png" width="15%" align="left"/>
+
+<img src="r4ds-es.png" width="20%" align="right"/>
+
+---
+class: inverse, center, middle
+
+<img src="dplyr.png" width="20%" align="center" />
+
+
+# Muchas Gracias!!
+
+---
+<img src="dplyr.png" width="10%" align="right" />
+
+```{r message=FALSE, warning=FALSE}
+sessionInfo()
+```
+
+---

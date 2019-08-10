@@ -33,7 +33,6 @@ gapminder_unfiltered %>%
 ```
 
 
-
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
@@ -255,9 +254,22 @@ gapminder %>%
 ```
 
 ---
+<img src="dplyr.png" width="10%" align="right" />
+
 # Para seguir practicando...
 
 https://garthtarr.github.io/meatR/dplyr_ex1.html
 
+### R4DS Capítulo 5: Data Transformation
 
----
+https://r4ds.had.co.nz/transform.html
+
+### R4DS Capítulo 5 (en español)
+
+https://es.r4ds.hadley.nz/transform.html 
+
+### Soluciones (en inglés)
+
+https://jrnold.github.io/r4ds-exercise-solutions/transform.html 
+
+

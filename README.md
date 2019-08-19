@@ -2,8 +2,9 @@
 
 * Para poder compilar el archivo .Rmd es necesario tener instalado
 
-`library(tidyverse)`
-`library(gapminder)`
+_ `library(tidyverse)`
+_ `library(gapminder)`
+
 `library(gganimate)`
 `library(rmarkdown)`
 `library(xaringan)`

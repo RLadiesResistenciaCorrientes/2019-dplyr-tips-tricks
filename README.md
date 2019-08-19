@@ -7,4 +7,4 @@ library(gapminder)
 library(gganimate)
 library(rmarkdown)
 library(xaringan)
-library(knitr)```
+library(knitr)

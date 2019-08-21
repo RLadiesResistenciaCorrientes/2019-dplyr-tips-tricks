@@ -17,7 +17,7 @@ class: inverse, center, middle
 <img src="knitr.png" width="20%" align="right" />
 
 
-### Realizado con  rmarkdown, xaringan y knitr
+### Realizado con  Rmarkdown, xaringan y knitr
 
 ---
 class: inverse, center, middle
@@ -54,7 +54,7 @@ https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
-# Data Science Workflow
+# Flujo de trabajo para Ciencia de Datos
 
 <img src="ds-w.png" width="90%" align="center" />
 
@@ -63,7 +63,7 @@ https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html
 
 <img src="dplyr.png" width="10%" align="right" />
 
-### Data Science 
+### Ciencia de datos
 
 <img src="ds.png" width="100%" align="middle" />
 
@@ -74,7 +74,8 @@ _Hands on programming with R_ by Garret Grolemund]
 
 # Dataset: gapminder
 ```{r eval=FALSE, tidy=FALSE}
-install.packages("gapminder") #<<
+install.packages("gapminder") 
+install.packages("dplyr")
 ```
 --
 .pull-left[
@@ -88,10 +89,10 @@ ggplot2::ggplot(filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)
   scale_fill_brewer(palette = "Set2") +
   scale_size_continuous(range = c(1, 20)) +
   labs(title = "",
-       subtitle = "Relationship between life expectancy and income, 2007",
-       caption = "Source: Gapminder.org",
-       x = "GDP per capita ($)",
-       y = "Age (years)") +
+       subtitle = "Relación entre la esperanza de vida y los ingresos, 2007",
+       caption = "Fuente: Gapminder.org",
+       x = "PBI per capita ($)",
+       y = "Edad (años)") +
   guides(size = FALSE) +
   theme(panel.grid.major.x = element_blank(),
         legend.position = "right", 
@@ -111,7 +112,7 @@ ggplot2::ggplot(filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)
 ---
 <img src="gganimate.png" width="10%" align="right" />
 
-## Just give me the code
+## El código
 
 ```{r tidy=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 library(gganimate)
@@ -250,6 +251,7 @@ class: inverse, middle, center
 
 # Operador pipe %>%
 - El operador pipe nos permite concatenar funciones y objetos en R, de forma que el código tenga un aspecto más ordenado, siguiendo la filosofía de tidyverse. 
+#### Con el operador pipe
 
 ```{r warning=FALSE, message=FALSE}
 library(magrittr)
@@ -258,7 +260,7 @@ gapminder %>%
   select(gdpPercap, year) %>%
   head(3)
 ```
-
+#### Sin el operador pipe
 ```{r warning=FALSE, message=FALSE}
 head(select(filter(gapminder, country=="Argentina"), gdpPercap, year), 3)
 ```
@@ -277,10 +279,10 @@ class: middle, center
 
 ## select(): extraer columnas
 ## filter(): extraer filas siguiendo una restricción lógica
-## mutate(): derivar nuevas variables
+## mutate(): crea nuevas variables
 ## summarise(): cambiar la unidad de análisis
-## arrange(): organizar filas por variables
-## group_by(): agrupa según un determinado criterio
+## arrange(): ordenar filas por variables
+## group_by(): agrupar según un determinado criterio
 
 ---
 class: inverse, middle, center
@@ -294,9 +296,9 @@ class: inverse, middle, center
 
 class: middle, center
 
-## dplyr_all: realizar una operación a todas las variables
-## dplyr_if: realizar una operación en un set de columnas o filas que fueron seleccionadas según sus características
-## dplyr_at: realizar una operación en un set de columnas o filas basados en los nombres de las variables
+## dplyr_all: aplica una operación a todas las variables
+## dplyr_if: aplica una operación a un set de columnas o filas que fueron seleccionadas según sus características
+## dplyr_at: aplica una operación a un set de columnas o filas basados en los nombres de las variables
 
 ---
 <img src="dplyr.png" width="10%" align="right" />
@@ -320,7 +322,7 @@ Mas información en https://dplyr.tidyverse.org/reference/select.html]
 # Funciones útiles para combinar con select()
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
 función <- c("-", ":", "contains()", "start_with()", "ends_with()", "everything()", "matches()", "num_range()")
-descripción <- c("selecciona todos menos", "selecciona un rango", "selecciona variables cuyo nombre contiene...", "selecciona variables cuyo nombre empieza con ...", "selecciona variables cuyo nombre empieza con...", "selecciona todas las columnas", "selecciona variables cuyo nombre coincide con...", "selecciona variables por posición")
+descripción <- c("selecciona todas menos", "selecciona un rango", "selecciona variables cuyo nombre contiene...", "selecciona variables cuyo nombre empieza con ...", "selecciona variables cuyo nombre empieza con...", "selecciona todas las columnas", "selecciona variables cuyo nombre coincide con...", "selecciona variables por posición")
 library(magrittr)
 tableX <- cbind(función, descripción)
 tableX %>%
@@ -331,7 +333,7 @@ tableX %>%
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
-#Tip 1: si tenemos que seleccionar las mismas columnas muchas veces
+#Tip 1: si tenemos que seleccionar las mismas columnas varias veces
 
 ```{r message=FALSE, warning=FALSE}
 cols<-c("country", "lifeExp", "gdpPercap")
@@ -432,7 +434,7 @@ filter(condicion1, condicion2)
 filter(condicion1, !condicion2)
 ```
 
-- Se cumplen las condiciones y/ o la condición 2
+- Se cumplen la condición 1 y/ o la condición 2
 ```{r message=FALSE, warning=FALSE, eval=FALSE}
 filter(condicion1 | condicion2)
 ```
@@ -491,8 +493,7 @@ Más información en https://dplyr.tidyverse.org/reference/mutate.html]
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
-# Tip 6
-### Si quisiéramos conservar la nueva columna en vez de mutate(), usamos transmute()
+# Tip 6: Si queremos conservar sólo la nueva columna; usamos transmute()
 
 ```{r }
 gapminder %>%
@@ -566,7 +567,7 @@ iris %>%
 
 #summarise_at()
 
-- Requiere dos argumentos, uno indicando las columnas que se tendrán en cuenta, y luego forma en que se resumirán los datos.  
+- Requiere dos argumentos, uno indicando las columnas que se tendrán en cuenta, y luego la operación con la que se resumirán los datos.  
 
 ```{r message=FALSE, warning=FALSE}
 iris %>%
@@ -577,7 +578,7 @@ iris %>%
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
-## summarise_if():
+#summarise_if():
 - Requiere dos argumentos 
 
 ```{r message=FALSE, warning=FALSE}
@@ -591,7 +592,7 @@ gapminder %>%
 
 # arrange()
 
-- Podemos reordenar los datos según otro criterio, por ejemplo, en vez de países, reordernarlos según año. 
+- Podemos reordenar los datos según otro criterio, por ejemplo, en vez ordenar por países, reordernarlos según año. 
 
 ```{r message=FALSE, warning=FALSE}
 gapminder %>%
@@ -681,7 +682,7 @@ class: inverse, center, middle
 #Joins
 
 - Cuando trabajamos con más de un dataset y necesitamos crear una base de datos a partir de dos o más set de datos, necesitamos realizar una operación llamada **JOIN**
-- Existen distintos tipos de **JOIN** según que dataset querramos mantener, y, también de acuerdo si se crean columnas nuevas (**mutating joins**) o solo filtramos filas (**filtering joins**)
+- Existen distintos tipos de **JOIN** según que dataset querramos generar, y, también de acuerdo a si se crean columnas nuevas (**mutating joins**) o solo filtramos filas (**filtering joins**)
 
 ### Mutating Joins
 
@@ -807,7 +808,7 @@ class: inverse, center, middle
 <img src="dplyr.png" width="10%" align="right" />
 
 ```{r message=FALSE, warning=FALSE}
-sessionInfo()
+devtools::session_info()
 ```
 
 ---

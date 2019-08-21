@@ -54,7 +54,7 @@ https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
-#  Flujo de trabajo para Ciencia de datos
+# Flujo de trabajo para Ciencia de Datos
 
 <img src="ds-w.png" width="90%" align="center" />
 
@@ -74,8 +74,8 @@ _Hands on programming with R_ by Garret Grolemund]
 
 # Dataset: gapminder
 ```{r eval=FALSE, tidy=FALSE}
-install.packages("dplyr") #<<
-install.packages("gapminder") #<<
+install.packages("gapminder") 
+install.packages("dplyr")
 ```
 --
 .pull-left[
@@ -112,7 +112,7 @@ ggplot2::ggplot(filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)
 ---
 <img src="gganimate.png" width="10%" align="right" />
 
-## Just give me the code
+## El código
 
 ```{r tidy=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 library(gganimate)
@@ -251,7 +251,7 @@ class: inverse, middle, center
 
 # Operador pipe %>%
 - El operador pipe nos permite concatenar funciones y objetos en R, de forma que el código tenga un aspecto más ordenado, siguiendo la filosofía de tidyverse. 
-Ejemplo: Utilizando el operador pipe
+#### Con el operador pipe
 
 ```{r warning=FALSE, message=FALSE}
 library(magrittr)
@@ -260,9 +260,7 @@ gapminder %>%
   select(gdpPercap, year) %>%
   head(3)
 ```
-
-Ejemplo: Sin utilizar el operador pipe
-
+#### Sin el operador pipe
 ```{r warning=FALSE, message=FALSE}
 head(select(filter(gapminder, country=="Argentina"), gdpPercap, year), 3)
 ```
@@ -436,7 +434,7 @@ filter(condicion1, condicion2)
 filter(condicion1, !condicion2)
 ```
 
-- Se cumplen la condición 1 y/o la condición 2
+- Se cumplen la condición 1 y/ o la condición 2
 ```{r message=FALSE, warning=FALSE, eval=FALSE}
 filter(condicion1 | condicion2)
 ```
@@ -495,8 +493,7 @@ Más información en https://dplyr.tidyverse.org/reference/mutate.html]
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
-# Tip 6
-### Si quisiéramos conservar sólo la nueva columna en vez de mutate(), usamos transmute()
+# Tip 6: Si queremos conservar sólo la nueva columna; usamos transmute()
 
 ```{r }
 gapminder %>%
@@ -517,7 +514,6 @@ gapminder %>%
 gdp_bycontinents <- gapminder %>%
     group_by(continent) %>%
     summarize(mean_gdpPercap=mean(gdpPercap))
-
 gdp_bycontinents
 ```
 
@@ -582,7 +578,7 @@ iris %>%
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
-## summarise_if():
+#summarise_if():
 - Requiere dos argumentos 
 
 ```{r message=FALSE, warning=FALSE}
@@ -596,7 +592,7 @@ gapminder %>%
 
 # arrange()
 
-- Podemos reordenar los datos según otro criterio, por ejemplo, en vez de ordenar por países, reordernarlos según año. 
+- Podemos reordenar los datos según otro criterio, por ejemplo, en vez ordenar por países, reordernarlos según año. 
 
 ```{r message=FALSE, warning=FALSE}
 gapminder %>%
@@ -621,7 +617,7 @@ gapminder %>%
 ---
 <img src="dplyr.png" width="10%" align="right" />
 
-#Tip 7: Encontrar los top 5 valores de más altos o más bajos
+#Tip 7: Encontrar los top 5 valores más altos o más bajos
 
 ```{r message=FALSE, warning=FALSE}
 gapminder %>%
@@ -812,7 +808,7 @@ class: inverse, center, middle
 <img src="dplyr.png" width="10%" align="right" />
 
 ```{r message=FALSE, warning=FALSE}
-sessionInfo()
+devtools::session_info()
 ```
 
 ---

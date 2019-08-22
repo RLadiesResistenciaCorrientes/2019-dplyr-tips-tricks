@@ -37,7 +37,7 @@ class: inverse, center, middle
 
 ### Funciones útiles 
 ### Funciones Principales + Tips
-### Joins 
+### Split - Apply - Combine + Joins
 
 ---
 <img src="dplyr.png" width="10%" align="right" />
@@ -106,7 +106,20 @@ ggplot2::ggplot(filter(gapminder, year == 2007), aes(x = gdpPercap, y = lifeExp)
 ---
 <img src="gganimate.png" width="10%" align="right" />
 
-## aca va lo de gganimate 
+## gapminder en el tiempo
+
+```{r tidy=FALSE, warning=FALSE, message=FALSE, echo=FALSE}
+library(gganimate)
+ggplot(gapminder, aes(gdpPercap, lifeExp, size = pop, colour = country)) +
+  geom_point(alpha = 0.7) +
+  scale_colour_manual(values = country_colors) +
+  scale_size(range = c(2, 12)) +
+  scale_x_log10() +
+  facet_wrap(~continent) +
+  theme(legend.position = 'none') +
+  labs(title = 'Year: {frame_time}', x = 'GDP per capita', y = 'life expectancy') +
+  transition_time(year)
+```
 
 
 ---
@@ -251,18 +264,17 @@ class: inverse, middle, center
 
 # Operador pipe %>%
 - El operador pipe nos permite concatenar funciones y objetos en R, de forma que el código tenga un aspecto más ordenado, siguiendo la filosofía de tidyverse. 
-#### Con el operador pipe
 
 ```{r warning=FALSE, message=FALSE}
 library(magrittr)
 gapminder %>%
   filter(country=="Argentina")%>%
   select(gdpPercap, year) %>%
-  head(3)
+  head(2)
 ```
-#### Sin el operador pipe
+- Sin operador pipe
 ```{r warning=FALSE, message=FALSE}
-head(select(filter(gapminder, country=="Argentina"), gdpPercap, year), 3)
+head(select(filter(gapminder, country=="Argentina"), gdpPercap, year), 2)
 ```
 
 

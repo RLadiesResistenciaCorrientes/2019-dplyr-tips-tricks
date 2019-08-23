@@ -2,7 +2,7 @@
 title: "Rladies"
 subtitle: "⚔<br/> Resistencia Corrientes"
 author: "Ejercicios dplyr"
-date: "15 de Agosto de 2019"
+date: "22 de Agosto de 2019"
 output:
   xaringan::moon_reader:
     css: ["default", "rladies", "rladies-fonts"]
